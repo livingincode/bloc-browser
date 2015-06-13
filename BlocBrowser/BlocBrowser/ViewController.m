@@ -100,9 +100,19 @@
     
     //[self.activityIndicator startAnimating];
     
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Hello", @"Hello") message:NSLocalizedString(@"Hello and welcome to Bloc Browser!", @"Hello and welcome to Bloc Browser!") preferredStyle:UIAlertControllerStyleAlert];
+    
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleCancel handler:nil];
+    
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:YES completion:nil];
+     
+    
     // Do any additional setup after loading the view, typically from a nib.
-}
 
+}
+                                                                                                                          
+                                                                                                
 - (void) viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     
