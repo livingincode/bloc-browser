@@ -38,7 +38,7 @@
                 for (NSString *currentTitle in self.currentTitles) {
                         UILabel *label = [[UILabel alloc] init];
                         label.userInteractionEnabled = NO;
-                        label.alpha = 0.25;
+                        label.alpha = 2;
             
                         NSUInteger currentTitleIndex = [self.currentTitles indexOfObject:currentTitle]; // 0 through 3
                         NSString *titleForThisLabel = [self.currentTitles objectAtIndex:currentTitleIndex];
@@ -70,8 +70,8 @@
         for (UILabel *thisLabel in self.labels) {
                 NSUInteger currentLabelIndex = [self.labels indexOfObject:thisLabel];
         
-                CGFloat labelHeight = CGRectGetHeight(self.bounds) / 2;
-                CGFloat labelWidth = CGRectGetWidth(self.bounds) / 2;
+                CGFloat labelHeight = CGRectGetHeight(self.bounds) / 3;
+                CGFloat labelWidth = CGRectGetWidth(self.bounds) / 3;
                 CGFloat labelX = 0;
                 CGFloat labelY = 0;
         
@@ -81,7 +81,7 @@
                         labelY = 0;
                     } else {
                             // 2 or 3, so on bottom
-                            labelY = CGRectGetHeight(self.bounds) / 2;
+                            labelY = CGRectGetHeight(self.bounds) / 3;
                         }
         
                 if (currentLabelIndex % 2 == 0) { // is currentLabelIndex evenly divisible by 2?
@@ -89,7 +89,7 @@
                         labelX = 0;
                     } else {
                             // 1 or 3, so on the right
-                            labelX = CGRectGetWidth(self.bounds) / 2;
+                            labelX = CGRectGetWidth(self.bounds) / 3;
                         }
         
                 thisLabel.frame = CGRectMake(labelX, labelY, labelWidth, labelHeight);
