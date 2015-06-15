@@ -48,25 +48,25 @@
                         NSString *titleForThisButton = [self.currentTitles objectAtIndex:currentTitleIndex];
                         UIColor *colorForThisButton = [self.colors objectAtIndex:currentTitleIndex];
             
-                        button.textAlignment = NSTextAlignmentCenter;
-                        button.font = [UIFont systemFontOfSize:10];
-                        button.text = titleForThisLabel;
-                        button.backgroundColor = colorForThisLabel;
-                        button.textColor = [UIColor whiteColor];
-            
+                        //button.textAlignment = NSTextAlignmentCenter;
+                        //button.font = [UIFont systemFontOfSize:10];
+                        [button  setTitle:currentTitle forState:UIControlStateNormal];
+                        button.backgroundColor = colorForThisButton;
+                        //button.textColor = [UIColor whiteColor];
+                        [button addTarget:self action:@selector(tapFired:) forControlEvents:UIControlEventTouchUpInside];
                         [buttonsArray addObject:button];
                     }
-        
+            
                 self.buttons = buttonsArray;
         
                 for (UIButton *thisButton in self.buttons) {
                         [self addSubview:thisButton];
                     }
-            
+            //self.backgroundColor = [UIColor redColor];
                 // #1
-                self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapFired:)];
+                //self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapFired:)];
                 // #2
-                [self addGestureRecognizer:self.tapGesture];
+                //[self addGestureRecognizer:self.tapGesture];
             
                 self.panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panFired:)];
                 [self addGestureRecognizer:self.panGesture];
@@ -124,26 +124,17 @@
     
         if (index != NSNotFound) {
                 UIButton *button = [self.buttons objectAtIndex:index];
-                button.userInteractionEnabled = enabled;
+                [button setEnabled:enabled];
                 button.alpha = enabled ? 1.0 : 0.25;
             }
     }
 
 
-- (void) tapFired:(UITapGestureRecognizer *)recognizer {
-        if (recognizer.state == UIGestureRecognizerStateRecognized) { // #3
-                CGPoint location = [recognizer locationInView:self]; // #4
-                UIView *tappedView = [self hitTest:location withEvent:nil]; // #5
-        
-                if ([self.buttons containsObject:tappedView]) { // #6
-                if ([self.delegate respondsToSelector:@selector(floatingToolbar:didSelectButtonWithTitle:)]) {
-                [self.delegate floatingToolbar:self didSelectButtonWithTitle:((UILabel *)tappedView).text];
-                   
-                }
-                
-            }
-        }
+- (void) tapFired:(UIButton *)sender {
+    if ([self.delegate respondsToSelector:@selector(floatingToolbar:didSelectButtonWithTitle:)]) {
+                [self.delegate floatingToolbar:self didSelectButtonWithTitle:sender.titleLabel.text];
     }
+}
 
 
 - (void) panFired:(UIPanGestureRecognizer *)recognizer {
@@ -169,7 +160,7 @@
                 NSLog(@"New scale: %f", scale);
         
                 if ([self.delegate respondsToSelector:@selector(floatingToolbar:didPinchToResize:)]) {
-                        [self.delegate floatingToolbar:self didPinchToResize:scale];
+                      //  [self.delegate floatingToolbar:self didPinchToResize:scale];
            
                 }
         
@@ -189,11 +180,11 @@
     
     
         CGRect potentialNewFrame = CGRectMake(startingPoint.x, startingPoint.y, newWidth, newHeight);
-    
-        if (CGRectContainsRect(self.view.bounds, potentialNewFrame)) {
-                toolbar.frame = potentialNewFrame;
-        
-        }
+//    
+//        if (CGRectContainsRect(self.view.bounds, potentialNewFrame)) {
+//                toolbar.frame = potentialNewFrame;
+//        
+//        }
 
 }
 
@@ -204,7 +195,7 @@
         
         if ([self.buttons containsObject:pressedView]) {
             if ([self.delegate respondsToSelector:@selector(floatingToolbar:didTryToPressButtonWithTitle:)]) {
-                [self.delegate floatingToolbar:self didTryToPressButtonWithTitle:((UIButton *)pressedView).text];
+               // [self.delegate floatingToolbar:self didTryToPressButtonWithTitle:((UIButton *)pressedView).text];
                 
             }
         }
